@@ -1,4 +1,4 @@
-if game:IsLoaded() ~= true then
+if game:IsLoaded() ~= true then -- good
     game.Loaded:Wait()
 end
 
