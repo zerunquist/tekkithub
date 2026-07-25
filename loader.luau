@@ -1,6 +1,4 @@
-if game:IsLoaded() ~= true then -- good
-    game.Loaded:Wait()
-end
+if game:IsLoaded() ~= true then game.Loaded:Wait() end
 
 local function checkandrun()
     local ui = gethui()
