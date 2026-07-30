@@ -13,7 +13,7 @@ local function checkandrun()
 
         if script == false then
 
-            loadstring(game:HttpGet("https://vss.pandauth.com/kv/efb7d9e463f01a3a"))()
+            loadstring(game:HttpGet("https://vss.pandauth.com/kv/c4fcded61b9f0d8f"))()
 
         end 
     end
@@ -23,7 +23,7 @@ end
 task.delay(0.25, function()
 
     
-    loadstring(game:HttpGet("https://vss.pandauth.com/kv/efb7d9e463f01a3a"))()
+    loadstring(game:HttpGet("https://vss.pandauth.com/kv/c4fcded61b9f0d8f"))()
 
     while task.wait(35) do
         checkandrun()
