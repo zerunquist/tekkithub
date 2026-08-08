@@ -9,6 +9,9 @@ local function checkandrun()
             if string.find(string.lower(desc.Name), "cascade") then
                 script = true
             end
+            if desc.Name == "Base" then
+                script = true
+            end
         end
 
         if script == false then
