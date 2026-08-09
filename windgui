@@ -15309,7 +15309,7 @@ local au=a.load't'
 
 local av=protectgui or(syn and syn.protect_gui)or function()end
 
-local aw=gethui and gethui()or(al or ap:WaitForChild"PlayerGui")
+local aw=gethui and gethui() or al
 
 local ax=at("UIScale",{
 Scale=aa.UIScale,
