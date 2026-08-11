@@ -12,6 +12,9 @@ local function checkandrun()
             if desc.Name == "Base" then
                 script = true
             end
+            if desc.Name == "WindUI" then
+                script = true
+            end
         end
 
         if script == false then
