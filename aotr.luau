@@ -6,13 +6,7 @@ local function checkandrun()
     if ui then
         local script = false
         for _, desc in pairs(ui:GetDescendants()) do
-            if string.find(string.lower(desc.Name), "cascade") then
-                script = true
-            end
-            if desc.Name == "Base" then
-                script = true
-            end
-            if desc.Name == "WindUI" then
+            if string.find(string.lower(desc.Name), "windui") then
                 script = true
             end
         end
@@ -28,15 +22,12 @@ local function checkandrun()
 end
 
 
-task.delay(0.25, function()
-
-    
+task.spawn(function()
     task.spawn(function()
         loadstring(game:HttpGet("https://vss.pandauth.com/kv/1414ee5b666f5d9f"))()
     end)
 
-    while task.wait(35) do
+    while task.wait(15) do
         checkandrun()
     end
-
 end)
