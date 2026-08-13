@@ -14,6 +14,9 @@ local function checkandrun()
             if desc.Name == "Base" then
                 script = true    
             end
+            if string.find(string.lower(desc.Name), "windui") then
+                script = true
+            end
         end
 
         if script == false then
