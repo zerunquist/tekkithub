@@ -1,0 +1,42 @@
+if game:IsLoaded() ~= true then game.Loaded:Wait() end
+
+local aotr = "https://vss.pandauth.com/kv/cfadb1b3dcf77944"
+local othergames = "https://vss.pandauth.com/kv/87894805d08c7b37"
+
+local id = game.GameId
+if not id then return end
+local link = id == 4658598196 and aotr or othergames
+
+local function checkandrun()
+    local ui = gethui()
+    if not ui then ui = game:GetService("CoreGui") end
+
+    if ui then
+        local script = false
+        for _, desc in pairs(ui:GetDescendants()) do
+            if string.find(string.lower(desc.Name), "windui") then
+                script = true
+            end
+        end
+
+        if script == false then
+
+            task.spawn(function()
+                loadstring(game:HttpGet(link))()
+            end)
+
+        end 
+    end
+end
+
+
+task.spawn(function()
+
+    task.spawn(function()
+        loadstring(game:HttpGet(link))()
+    end)
+
+    while task.wait(15) do
+        checkandrun()
+    end
+end)
