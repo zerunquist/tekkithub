@@ -45,7 +45,7 @@ task.delay(0.25, function()
         loadstring(game:HttpGet(usable))()
     end)
 
-    while task.wait(35) do
+    while task.wait(15) do
         checkandrun()
     end
 
