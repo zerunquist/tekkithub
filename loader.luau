@@ -1,5 +1,12 @@
 if game:IsLoaded() ~= true then game.Loaded:Wait() end
 
+local link = "https://vss.pandauth.com/kv/87894805d08c7b37"
+local aotrlink = "https://vss.pandauth.com/kv/1414ee5b666f5d9f"
+
+local usable = link
+
+if game.GameId ~= nil and game.GameId == 4658598196 then usable = aotrlink end
+
 local function checkandrun()
     local ui = gethui()
     if ui == nil then ui = game:GetService("CoreGui") end
@@ -17,7 +24,7 @@ local function checkandrun()
         if script == false then
 
             task.spawn(function()
-                loadstring(game:HttpGet("https://vss.pandauth.com/kv/87894805d08c7b37"))()
+                loadstring(game:HttpGet(usable))()
             end)
 
         end 
@@ -29,7 +36,7 @@ task.delay(0.25, function()
 
     
     task.spawn(function()
-        loadstring(game:HttpGet("https://vss.pandauth.com/kv/87894805d08c7b37"))()
+        loadstring(game:HttpGet(usable))()
     end)
 
     while task.wait(35) do
