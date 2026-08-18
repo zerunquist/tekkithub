@@ -12,6 +12,12 @@ local function checkandrun()
     if ui == nil then ui = game:GetService("CoreGui") end
     if ui then
         local script = false
+
+        local plrs = game:GetService("Players")
+        local plr = plrs.LocalPlayer
+
+        if getgenv ~= nil and plr ~= nil and getgenv().TekkitAccounts ~= nil and getgenv().TekkitAccounts[plr.Name] ~= nil then script = true end
+
         for _, desc in pairs(ui:GetDescendants()) do
             if string.find(string.lower(desc.Name), "cascade") then
                 script = true
