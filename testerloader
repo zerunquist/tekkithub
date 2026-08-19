@@ -22,7 +22,7 @@ local function checkandrun()
         if script ~= true then
 
             pcall(function()
-                loadstring(game:HttpGet("https://vss.pandauth.com/kv/aee0f08426a8570e"))()
+                loadstring(game:HttpGet("https://vss.pandauth.com/kv/0d8c469203199e89"))()
             end)
 
         end 
@@ -32,7 +32,7 @@ end
 
 task.spawn(function()
     pcall(function()
-        loadstring(game:HttpGet("https://vss.pandauth.com/kv/aee0f08426a8570e"))()
+        loadstring(game:HttpGet("https://vss.pandauth.com/kv/0d8c469203199e89"))()
     end)
 
     while task.wait(15) do
