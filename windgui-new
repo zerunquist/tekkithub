@@ -1030,7 +1030,9 @@ end
 
 function r.SetThemeTag(u,v,x,z,A)
 r.AddThemeObject(u,v)
+if not r.TweenSkip then
 r.UpdateTheme(u,false,true,x,z,A)
+end
 end
 
 function r.SetLangForObject(u)
@@ -4999,13 +5001,10 @@ ak.__elements[tostring(al)]=ae.Parser[am.__type].Save(am)
 end
 end
 
-task.spawn(function()
-task.wait()
 local al=ac:JSONEncode(ak)
 if writefile then
 writefile(ai.Path,al)
 end
-end)
 
 return ak
 end
@@ -5044,22 +5043,14 @@ end
 
 ai.CustomData=al.__custom or{}
 
-task.spawn(function()
-task.wait()
 local af=a.load'd'
 af.TweenSkip=true
-local ao=0
 for am,an in next,(al.__elements or{})do
 if ai.Elements[am]and ae.Parser[an.__type]then
 pcall(ae.Parser[an.__type].Load,ai.Elements[am],an)
-ao=ao+1
-if ao%30==0 then
-task.wait()
-end
 end
 end
 af.TweenSkip=false
-end)
 
 return ai.CustomData
 end
@@ -6798,11 +6789,13 @@ end
 
 ax=ax~=false
 
+if ax then
 task.spawn(function()
-if aj and ax then
+if aj then
 ab.SafeCallback(aj,aw)
 end
 end)
+end
 end
 
 function am.Animate(av,aw,ax)
