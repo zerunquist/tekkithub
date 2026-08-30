@@ -8807,12 +8807,35 @@ end
 end
 if ak.TweenSkip then
 as:Display()
-if not ap.PendingRefresh then
-ap.PendingRefresh=true
-task.defer(function()
-ap.PendingRefresh=false
-as:Refresh(ap.Values)
-end)
+if ap.Tabs then
+local aB
+if ap.Multi then
+aB={}
+if typeof(ap.Value)=="table"then
+for aC,b in ipairs(ap.Value)do
+aB[typeof(b)=="table"and b.Title or b]=true
+end
+end
+else
+aB=typeof(ap.Value)=="table"and ap.Value.Title or ap.Value
+end
+for aC,b in ipairs(ap.Tabs)do
+local d=ap.Multi and aB[b.Name]==true or aB==b.Name
+b.Selected=d
+if d and not b.Locked then
+b.UIElements.TabItem.ImageTransparency=an
+b.UIElements.TabItem.Frame.Title.TextLabel.TextTransparency=0
+if b.UIElements.TabIcon then
+b.UIElements.TabIcon.ImageLabel.ImageTransparency=0
+end
+elseif not d and not b.Locked then
+b.UIElements.TabItem.ImageTransparency=1
+b.UIElements.TabItem.Frame.Title.TextLabel.TextTransparency=ar=="Dropdown"and 0.4 or 0.05
+if b.UIElements.TabIcon then
+b.UIElements.TabIcon.ImageLabel.ImageTransparency=ar=="Dropdown"and 0.2 or 0
+end
+end
+end
 end
 else
 as:Refresh(ap.Values)
