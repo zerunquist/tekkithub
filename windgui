@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    v1.6.65  |  2026-07-01  |  Roblox UI Library for scripts
+    v1.6.66  |  2026-07-01  |  Roblox UI Library for scripts
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -1030,7 +1030,9 @@ end
 
 function r.SetThemeTag(u,v,x,z,A)
 r.AddThemeObject(u,v)
+if not r.TweenSkip then
 r.UpdateTheme(u,false,true,x,z,A)
+end
 end
 
 function r.SetLangForObject(u)
@@ -1145,6 +1147,12 @@ return z
 end
 
 function r.Tween(u,v,x,...)
+if r.TweenSkip then
+for y,z in next,x do
+u[y]=z
+end
+return{Play=function()end,Cancel=function()end,Destroy=function()end}
+end
 return f:Create(u,TweenInfo.new(v,...),x)
 end
 
@@ -4822,6 +4830,9 @@ end,
 Load=function(af,ag)
 if af and af.Update then
 af:Update(Color3.fromHex(ag.value),ag.transparency or nil)
+if af.Callback then
+pcall(af.Callback,af.Default,af.Transparency)
+end
 end
 end
 },
@@ -4835,6 +4846,9 @@ end,
 Load=function(af,ag)
 if af and af.Select then
 af:Select(ag.value)
+if af.Callback then
+pcall(af.Callback,af.Value)
+end
 end
 end
 },
@@ -5033,15 +5047,16 @@ ai:Register(am,an)
 end
 end
 
+ai.CustomData=al.__custom or{}
+
+local af=a.load'd'
+af.TweenSkip=true
 for am,an in next,(al.__elements or{})do
 if ai.Elements[am]and ae.Parser[an.__type]then
-task.spawn(function()
-ae.Parser[an.__type].Load(ai.Elements[am],an)
-end)
+pcall(ae.Parser[an.__type].Load,ai.Elements[am],an)
 end
 end
-
-ai.CustomData=al.__custom or{}
+af.TweenSkip=false
 
 return ai.CustomData
 end
@@ -6780,11 +6795,13 @@ end
 
 ax=ax~=false
 
+if ax then
 task.spawn(function()
-if aj and ax then
+if aj then
 ab.SafeCallback(aj,aw)
 end
 end)
+end
 end
 
 function am.Animate(av,aw,ax)
@@ -7492,7 +7509,7 @@ local b=math.clamp(
 )
 aA=CalculateValue(al.Value.Min+b*(al.Value.Max-al.Value.Min))
 
-if aA~=aq then
+if aA~=aq or ae.TweenSkip then
 ag(al.UIElements.SliderIcon.Frame,0.05,{Size=UDim2.new(b,0,1,0)}):Play()
 al.UIElements.SliderContainer.TextBox.Text=FormatValue(aA)
 if ax then
@@ -8794,7 +8811,41 @@ else
 ap.Value=nil
 end
 end
+if ak.TweenSkip then
+as:Display()
+if ap.Tabs then
+local aB
+if ap.Multi then
+aB={}
+if typeof(ap.Value)=="table"then
+for aC,b in ipairs(ap.Value)do
+aB[typeof(b)=="table"and b.Title or b]=true
+end
+end
+else
+aB=typeof(ap.Value)=="table"and ap.Value.Title or ap.Value
+end
+for aC,b in ipairs(ap.Tabs)do
+local d=ap.Multi and aB[b.Name]==true or aB==b.Name
+b.Selected=d
+if d and not b.Locked then
+b.UIElements.TabItem.ImageTransparency=an
+b.UIElements.TabItem.Frame.Title.TextLabel.TextTransparency=0
+if b.UIElements.TabIcon then
+b.UIElements.TabIcon.ImageLabel.ImageTransparency=0
+end
+elseif not d and not b.Locked then
+b.UIElements.TabItem.ImageTransparency=1
+b.UIElements.TabItem.Frame.Title.TextLabel.TextTransparency=ar=="Dropdown"and 0.4 or 0.05
+if b.UIElements.TabIcon then
+b.UIElements.TabIcon.ImageLabel.ImageTransparency=ar=="Dropdown"and 0.2 or 0
+end
+end
+end
+end
+else
 as:Refresh(ap.Values)
+end
 end
 
 RecalculateListSize()
@@ -10833,6 +10884,20 @@ end
 end)
 
 aa.AddSignal(at.Outline.Content.UIListLayout:GetPropertyChangedSignal"AbsoluteContentSize",function()
+if aa.TweenSkip then
+if not an.PendingSync then
+an.PendingSync=true
+task.defer(function()
+an.PendingSync=false
+if an.Opened then
+an:Open(true)
+else
+an:Close(true)
+end
+end)
+end
+return
+end
 if an.Opened then
 an:Open(true)
 else
