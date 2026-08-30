@@ -5045,9 +5045,27 @@ ai.CustomData=al.__custom or{}
 
 local af=a.load'd'
 af.TweenSkip=true
+local ao={}
 for am,an in next,(al.__elements or{})do
 if ai.Elements[am]and ae.Parser[an.__type]then
+ao[ai.Elements[am]]=true
 pcall(ae.Parser[an.__type].Load,ai.Elements[am],an)
+end
+end
+if ad.AllElements then
+for ap=1,#ad.AllElements do
+local aq=ad.AllElements[ap]
+if aq and ao[aq]then
+if aq.__type=="Section"and aq.Expandable then
+if aq.Opened then
+pcall(aq.Open,aq,true)
+else
+pcall(aq.Close,aq,true)
+end
+elseif aq.__type=="Dropdown"and aq.Refresh then
+pcall(aq.Refresh,aq,aq.Values)
+end
+end
 end
 end
 af.TweenSkip=false
@@ -8805,7 +8823,11 @@ else
 ap.Value=nil
 end
 end
+if ak.TweenSkip then
+as:Display()
+else
 as:Refresh(ap.Values)
+end
 end
 
 RecalculateListSize()
@@ -10844,6 +10866,9 @@ end
 end)
 
 aa.AddSignal(at.Outline.Content.UIListLayout:GetPropertyChangedSignal"AbsoluteContentSize",function()
+if aa.TweenSkip then
+return
+end
 if an.Opened then
 an:Open(true)
 else
