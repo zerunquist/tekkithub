@@ -3,7 +3,9 @@ task.wait(1)
 
 
 local function execute()
-    loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/3120ec809dc2f41db1589e92e9d4e466.lua"))()
+    pcall(function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v4/loaders/3120ec809dc2f41db1589e92e9d4e466.lua"))()
+    end)
 end
 
 local function checkexecute()
