@@ -14,8 +14,8 @@ local function checkexecute()
 
     if plr then
         if getgenv ~= nil then
-            if getgenv().TekkitAccounts ~= nil then
-                if getgenv().TekkitAccounts[plr.Name] ~= nil then
+            if getgenv().sdfoiu ~= nil then
+                if getgenv().sdfoiu[plr.Name] ~= nil then
                     return true
                 end
             end
