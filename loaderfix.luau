@@ -24,6 +24,6 @@ local function checkexecute()
     return false
 end
 
-repeat execute(); task.wait(2) until checkexecute() == true
+repeat execute(); task.wait(10) until checkexecute() == true
 
 
