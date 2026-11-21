@@ -20,7 +20,7 @@ local s = {
     plrs = newcloneref(game:GetService("Players")),
     startergui = newcloneref(game:GetService("StarterGui")),
     vip = newcloneref(game:GetService("VirtualInputManager")),
-    uip = newcloneref(game:GetService("UserInputService"),
+    uip = newcloneref(game:GetService("UserInputService")),
 }
 
 local a = {
@@ -453,7 +453,7 @@ local function autoexec()
         exec = true
 
 
-        local key = script_key
+        local key = script_key or ""
 
         if getgenv().TCFG then
             
