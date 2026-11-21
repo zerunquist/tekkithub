@@ -21,6 +21,7 @@ local s = {
     startergui = newcloneref(game:GetService("StarterGui")),
     vip = newcloneref(game:GetService("VirtualInputManager")),
     uip = newcloneref(game:GetService("UserInputService")),
+    http = newcloneref(game:GetService("HttpService")),
 }
 
 local a = {
